@@ -1,0 +1,7 @@
+package com.newnomal.booth_reservation.config;
+
+public class TokenException extends RuntimeException{
+    public TokenException(String message){
+        super(message);
+    }
+}
