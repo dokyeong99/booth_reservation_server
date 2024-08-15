@@ -41,17 +41,12 @@ public class UserService {
         User user = userRepository.getReferenceById(tokenInfo.getId());
 
         //유저 정보 업데이트 진행
-        try {
-            user.setNickname(userRequest.getNickname());
-            user.setProfileImage(userRequest.getProfileImage());
-            user.setSecretPassword(userRequest.getSecretPassword());
-            userRepository.save(user);
-            return ResponseEntity.ok(new RestResult<>("SUCCESS",new UserResponse(user)));
-        }catch (Exception e) {
-            //예상 못한 오류 반환
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new RestResult<>("CONFLICT",new RestResult<>("UPDATE_CONFLICT","업데이트 실패 다시 요청해 주세요.")));
-        }
+        user.setNickname(userRequest.getNickname());
+        user.setProfileImage(userRequest.getProfileImage());
+        user.setSecretPassword(userRequest.getSecretPassword());
+        userRepository.save(user);
+        return ResponseEntity.ok(new RestResult<>("SUCCESS",new UserResponse(user)));
+
     }
 
     //유저 삭제
@@ -60,14 +55,9 @@ public class UserService {
         TokenInfo tokenInfo = jwtService.extractUser(token);
         User user = userRepository.getReferenceById(tokenInfo.getId());
 
-        try {
-            //유저 상태 삭제 처리
-            user.setState(UserState.DELETED);
-            return ResponseEntity.ok(new RestResult<>("SUCCESS","유저 삭제처리 완료"));
-        }catch (Exception e) {
-            //예상 못한 오류 반환
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new RestResult<>("CONFLICT",new RestResult<>("DELETE_CONFLICT","삭제요청 실패 다시 요청해 주세요.")));
-        }
+        //유저 상태 삭제 처리
+        user.setState(UserState.DELETED);
+        return ResponseEntity.ok(new RestResult<>("SUCCESS","유저 삭제처리 완료"));
+
     }
 }

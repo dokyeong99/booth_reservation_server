@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +16,8 @@ import java.time.LocalDate;
 @Setter
 @Table(name = "reservation_table", indexes ={
         @Index(name = "boothIndex",columnList = "boothId"),
-        @Index(name = "userIndex",columnList = "userId")
+        @Index(name = "userIndex",columnList = "userId"),
+        @Index(name = "reservationDateIndex",columnList = "reservationDate")
 })
 public class Reservation {
     @Id
@@ -32,3 +32,4 @@ public class Reservation {
     private ReservationState state;//1.부스 이용 가능 상태 2.부스 이용 불가능 상태 3.부스 삭제 상태
 
 }
+

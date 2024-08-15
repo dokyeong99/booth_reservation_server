@@ -21,5 +21,10 @@ public class Booth {
     private Long authorityId;//매핑은 굳이 안해도 상관없음
     private Integer boothNumber;//기관에 속한 개인 부스의 번호
     private BoothState state;//1.부스 이용 가능 상태 2.부스 이용 불가능 상태 3.부스 삭제 상태
+    @Version
+    private Long version;
 
+    public void incrementReservationCount(){
+        this.boothNumber++;
+    }
 }
