@@ -3,6 +3,7 @@ package com.newnomal.booth_reservation.domain.entity;
 
 import com.newnomal.booth_reservation.common.Role;
 import com.newnomal.booth_reservation.domain.request.UserAuthRequest;
+import com.newnomal.booth_reservation.domain.state.UserState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,9 @@ public class User {
     private String profileImage;//kakao_profile_image
     private String secretPassword;//분실물 되찾기에 필요한 부스 잠금해제 개인비밀번호 => 초기 비밀번호 1234
     private Long kakaoId;//OAUTH를 통해 얻어온 KAKAO ID => 현재는 LongType의 ID가 오지만 차후에 UUID로 변환할 필요 있음
+    private UserState state;//1.유효, 2.삭제상태
     private Role role;
+
 
     public User(UserAuthRequest request){
         this.nickname = request.getNickname();

@@ -62,7 +62,7 @@ public class SecretAspect { // 토큰 확인, 유저 확인, 어드민 확인을
 
             if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7); // "Bearer " prefix 제거
-                TokenStatus result = jwtService.checkRole(token);//토큰 유효성 검정(유효성, 만료 검증)
+                TokenStatus result = jwtService.checkRole(token);//권한 인증(토큰 유효성, 권한 검사)
                 if (!result.equals(TokenStatus.NOT_AUTHORIZED)) {//어드민 확인
                     throw new TokenException("관리자 권한이 없습니다.");
                 } else if (result.equals(TokenStatus.INVALID)) {
