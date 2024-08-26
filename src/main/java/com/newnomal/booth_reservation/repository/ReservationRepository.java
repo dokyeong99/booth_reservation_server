@@ -2,6 +2,7 @@ package com.newnomal.booth_reservation.repository;
 
 import com.newnomal.booth_reservation.domain.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +18,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     //and reservationEndTimeZone >= {startTimeZone}
     boolean existsByBoothIdAndReservationDateAndReservationStartTimeZoneLessThanEqualAndReservationEndTimeZoneGreaterThanEqual(
             Long boothId, LocalDate reservationDate, Integer endTimeZone, Integer startTimeZone);
+
 
     List<Reservation> findByUserIdAndAuthorityIdAndReservationDate(Long userId, Long authorityId, LocalDate reservationDate);
 

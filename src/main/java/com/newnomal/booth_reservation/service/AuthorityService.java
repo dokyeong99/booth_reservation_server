@@ -87,7 +87,7 @@ public class AuthorityService {
         Authority authority = authorityOpt.get();
 
         List<Reservation> userReservations = reservationRepository.findAllByAuthorityIdAndReservationDate(authorityId, date);
-        Integer validBoothLength = boothRepository.getAuthorityValidBoothLength(authorityId);
+        Integer validBoothLength = boothRepository.getValidBoothLength(authorityId);
         Map<Integer,Integer> duplicationTimeZone = new HashMap<>();
 
         for (int i = 0; i < userReservations.size(); i++) {
