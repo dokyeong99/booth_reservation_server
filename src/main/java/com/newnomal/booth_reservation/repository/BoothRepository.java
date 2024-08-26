@@ -13,4 +13,9 @@ public interface BoothRepository extends JpaRepository<Booth,Long> {
             "where b.state = com.newnomal.booth_reservation.domain.state.BoothState.VALID")
     List<Booth> findByAuthorityIdStateVAlid(Long authorityId);
 
+    @Query("select array_length(b) from Booth b " +
+            "where b.authorityId = :authorityId and " +
+            "b.state = com.newnomal.booth_reservation.domain.state.BoothState.VALID")
+    Integer getAuthorityValidBoothLength(Long authorityId);
+
 }

@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,17 +90,11 @@ public class BoothService {
         }
         Authority authority = authorityOpt.get();
 
-        List<Reservation> userReservations = null;
-//                reservationRepository.findAllByUserIdAndAuthorityIdAndReservationDate(userId, authorityId, date);
+        List<Reservation> userReservations = reservationRepository.findByUserIdAndAuthorityIdAndReservationDate(userId, authorityId, date);
 
         int totalReservedTimeZones = userReservations.stream()
                 .mapToInt(reservation -> reservation.getReservationEndTimeZone() - reservation.getReservationStartTimeZone() + 1)
                 .sum();
-
-        List<List<Integer>> reservedTimeZones = new ArrayList<>();
-        userReservations.stream().forEach(reservation ->
-                reservedTimeZones.add(List.of(reservation.getReservationStartTimeZone(), reservation.getReservationEndTimeZone()))
-                );
 
         int remainingTimeZones = authority.getMaxTimeZoneNumber() - totalReservedTimeZones;
 
@@ -111,12 +103,13 @@ public class BoothService {
                 authority.getBoothEndTimezone(),
                 authority.getMaxTimeZoneNumber(),
                 totalReservedTimeZones,
-                reservedTimeZones,
                 remainingTimeZones
         );
 
         return ResponseEntity.ok(new RestResult<>("SUCCESS", response));
     }
+
+
 
     public ResponseEntity<RestResult<Object>> getReservedTimeZone(
              Long boothId, LocalDate date) {

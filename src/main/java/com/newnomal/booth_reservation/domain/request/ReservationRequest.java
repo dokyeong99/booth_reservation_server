@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class ReservationRequest {
     private Long boothId;
     private Long userId;
+    private Long AuthorityId;
     private Integer reservationStartTimeZone;
     private Integer reservationEndTimeZone;
     private LocalDate reservationDate;

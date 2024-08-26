@@ -11,4 +11,6 @@ public interface AuthorityRepository extends JpaRepository<Authority, Long> {
     @Query("select a from Authority a " +
             "where a.status = com.newnomal.booth_reservation.domain.state.AuthorityState.VALID")
     List<Authority> getAllStateValid();
+
+
 }

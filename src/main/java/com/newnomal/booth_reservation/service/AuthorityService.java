@@ -2,25 +2,29 @@ package com.newnomal.booth_reservation.service;
 
 import com.newnomal.booth_reservation.common.RestResult;
 import com.newnomal.booth_reservation.domain.entity.Authority;
+import com.newnomal.booth_reservation.domain.entity.Reservation;
 import com.newnomal.booth_reservation.domain.request.AuthorityRequest;
 import com.newnomal.booth_reservation.domain.response.AuthorityResponse;
 import com.newnomal.booth_reservation.domain.state.AuthorityState;
 import com.newnomal.booth_reservation.repository.AuthorityRepository;
+import com.newnomal.booth_reservation.repository.BoothRepository;
+import com.newnomal.booth_reservation.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class AuthorityService {
     private final AuthorityRepository authorityRepository;
+    private final ReservationRepository reservationRepository;
+    private final BoothRepository boothRepository;
 
     //Authority생성
     public ResponseEntity<RestResult<Object>> createAuthority(AuthorityRequest authorityRequest) {
@@ -72,6 +76,37 @@ public class AuthorityService {
         authority.setStatus(AuthorityState.DELETED);
         authorityRepository.save(authority);
         return ResponseEntity.ok(new RestResult<>("SUCCESS", "기관 상태 삭제 변경 완료"));
+    }
+
+    public ResponseEntity<RestResult<Object>> getAuthorityReservedTimeZone(Long authorityId, LocalDate date) {
+        Optional<Authority> authorityOpt = authorityRepository.findById(authorityId);
+        if (authorityOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new RestResult<>("NOT_FOUND", new RestResult<>("AUTHORITY_NOT_FOUND", "존재하지 않는 기관입니다")));
+        }
+        Authority authority = authorityOpt.get();
+
+        List<Reservation> userReservations = reservationRepository.findAllByAuthorityIdAndReservationDate(authorityId, date);
+        Integer validBoothLength = boothRepository.getAuthorityValidBoothLength(authorityId);
+        Map<Integer,Integer> duplicationTimeZone = new HashMap<>();
+
+        for (int i = 0; i < userReservations.size(); i++) {
+            Reservation reservation = userReservations.get(i);
+            for (int j = reservation.getReservationStartTimeZone(); j <= reservation.getReservationEndTimeZone(); j++) {
+                duplicationTimeZone.put(j, duplicationTimeZone.getOrDefault(j,0) + 1);
+            }
+        }
+
+
+        List<Integer> reservedTimeZones = new ArrayList<>();
+        for (int i = 0; i < duplicationTimeZone.size(); i++) {
+            if (duplicationTimeZone.get(i).equals(validBoothLength)){
+                reservedTimeZones.add(i);
+            }
+        }
+
+
+        return ResponseEntity.ok(new RestResult<>("SUCCESS", reservedTimeZones));
     }
 
     private void updateAuthorityFromRequest(Authority authority, AuthorityRequest request) {

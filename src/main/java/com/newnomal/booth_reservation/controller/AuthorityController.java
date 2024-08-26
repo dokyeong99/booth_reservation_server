@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/authority")
@@ -51,5 +53,11 @@ public class AuthorityController {
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResult<Object>> deleteAuthority(@PathVariable Long id) {
         return authorityService.deleteAuthority(id);
+    }
+
+
+    @GetMapping("/getAuthorityReservedTimeZone")
+    public ResponseEntity<RestResult<Object>> getAuthorityReservedTimeZone(Long authorityId,  LocalDate date) {
+        return authorityService.getAuthorityReservedTimeZone(authorityId, date);
     }
 }

@@ -70,6 +70,7 @@ public class ReservationService {
 
 
             Reservation reservation = new Reservation();
+            reservation.setAuthorityId(reservationRequest.getAuthorityId());
             reservation.setBoothId(reservationRequest.getBoothId());
             reservation.setUserId(reservationRequest.getUserId());
             reservation.setReservationStartTimeZone(reservationRequest.getReservationStartTimeZone());

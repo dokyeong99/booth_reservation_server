@@ -17,6 +17,7 @@ public class ReservationResponse {
     private Long id;
     private Long boothId;
     private Long userId;
+    private Long AuthorityId;
     private Integer reservationStartTimeZone;
     private Integer reservationEndTimeZone;
     private String qrIdentifier;
@@ -28,6 +29,7 @@ public class ReservationResponse {
         this.id = reservation.getId();
         this.boothId = reservation.getBoothId();
         this.userId = reservation.getUserId();
+        this.AuthorityId = reservation.getAuthorityId();
         this.reservationStartTimeZone = reservation.getReservationStartTimeZone();
         this.reservationEndTimeZone = reservation.getReservationEndTimeZone();
         this.qrIdentifier = reservation.getQrIdentifier();

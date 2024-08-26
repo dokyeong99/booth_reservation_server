@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class BoothController {
     private final BoothService boothService;
 
+
     //부스 생성
     @AdminCheck
     @PostMapping
@@ -59,8 +60,8 @@ public class BoothController {
     }
 
 
-    //특정 유저가 특정 기관에서 예약하고자 할 때 해당 기관에서의 남아있는 예약 가능 time zone 개수 반환
-    //해당 기관이 10의 예약이 가능하고, 이미 유저가 2의 예약을 완료 했다면 8을 반환
+    //특정 유저가 특정 기관에서 예약하고자 할 때 해당 기관에서의 남아있는 예약 가능 time zone 반환
+    //예로 해당 예약 기관의 최대 이용 가능 timezone이 10일 때 6을 이미 예약했다면 4반환
     @TokenRequired
     @GetMapping("/availability")
     public ResponseEntity<RestResult<Object>> getBoothAvailability(
@@ -70,7 +71,7 @@ public class BoothController {
         return boothService.getBoothAvailability(authorityId, userId, date);
     }
 
-    //예약 불가능 time zone 반환
+    //단일 부스에서 예약 불가능한 타임 zone 반환
     @GetMapping("/reservedTimeZone")
     public ResponseEntity<RestResult<Object>> getReservedTimeZone(
             @RequestParam Long boothId,

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,6 +14,5 @@ public class AvailabilityResponse {
     private Integer boothEndTimezone;
     private Integer maxTimeZoneNumber;
     private Integer totalReservedTimeZones;
-    private List<List<Integer>> reservedTimeZones;
     private Integer remainingTimeZones;
 }
