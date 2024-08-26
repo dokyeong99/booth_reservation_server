@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reservation")
@@ -37,5 +39,15 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<RestResult<Object>> cancelReservation(@PathVariable Long id) {
         return reservationService.cancelReservation(id);
+    }
+
+    @TokenRequired
+    @GetMapping("/verifyQRCode/{qrIdentifier}/{date}/{timeZone}")
+    public ResponseEntity<RestResult<Object>> verifyQrCode(@RequestHeader("Authorization") String authorization,
+                                                           @PathVariable String qrIdentifier,
+                                                           @PathVariable LocalDate date,
+                                                           @PathVariable Integer timeZone) {
+        String token = authorization.substring(7);
+        return reservationService.verifyQRCode(token, qrIdentifier, date, timeZone);
     }
 }

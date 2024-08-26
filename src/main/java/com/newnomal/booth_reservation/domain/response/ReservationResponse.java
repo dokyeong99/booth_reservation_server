@@ -22,6 +22,7 @@ public class ReservationResponse {
     private String qrIdentifier;
     private LocalDate reservationDate;
     private ReservationState state;
+    private String qrCodeImage;
 
     public ReservationResponse(Reservation reservation) {
         this.id = reservation.getId();

@@ -98,6 +98,11 @@ public class BoothService {
                 .mapToInt(reservation -> reservation.getReservationEndTimeZone() - reservation.getReservationStartTimeZone() + 1)
                 .sum();
 
+        List<List<Integer>> reservedTimeZones = new ArrayList<>();
+        userReservations.stream().forEach(reservation ->
+                reservedTimeZones.add(List.of(reservation.getReservationStartTimeZone(), reservation.getReservationEndTimeZone()))
+                );
+
         int remainingTimeZones = authority.getMaxTimeZoneNumber() - totalReservedTimeZones;
 
         AvailabilityResponse response = new AvailabilityResponse(
@@ -105,6 +110,7 @@ public class BoothService {
                 authority.getBoothEndTimezone(),
                 authority.getMaxTimeZoneNumber(),
                 totalReservedTimeZones,
+                reservedTimeZones,
                 remainingTimeZones
         );
 

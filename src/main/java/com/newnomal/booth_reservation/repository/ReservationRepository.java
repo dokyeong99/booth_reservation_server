@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findByUserId(Long userId);
@@ -21,5 +22,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findByUserIdAndAuthorityIdAndReservationDate(Long userId, Long authorityId, LocalDate reservationDate);
 
     List<Reservation> findAllByBoothIdAndReservationDate(Long boothId,LocalDate date);
+
+    Optional<Reservation> findByQrIdentifierAndReservationDateAndReservationStartTimeZoneGreaterThanEqualAndReservationEndTimeZoneLessThanEqual(String qrIdentifier, LocalDate reservationDate, Integer reservationStartTimeZone, Integer reservationEndTimeZone);
+
 
 }

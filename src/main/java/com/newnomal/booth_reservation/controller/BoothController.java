@@ -70,7 +70,7 @@ public class BoothController {
         return boothService.getBoothAvailability(authorityId, userId, date);
     }
 
-    @TokenRequired
+    //예약 불가능 time zone 반환
     @GetMapping("/reservedTimeZone")
     public ResponseEntity<RestResult<Object>> getReservedTimeZone(
             @RequestParam Long boothId,
