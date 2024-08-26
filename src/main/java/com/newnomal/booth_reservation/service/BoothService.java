@@ -92,7 +92,8 @@ public class BoothService {
         }
         Authority authority = authorityOpt.get();
 
-        List<Reservation> userReservations = reservationRepository.findByUserIdAndAuthorityIdAndReservationDate(userId, authorityId, date);
+        List<Reservation> userReservations = null;
+//                reservationRepository.findAllByUserIdAndAuthorityIdAndReservationDate(userId, authorityId, date);
 
         int totalReservedTimeZones = userReservations.stream()
                 .mapToInt(reservation -> reservation.getReservationEndTimeZone() - reservation.getReservationStartTimeZone() + 1)

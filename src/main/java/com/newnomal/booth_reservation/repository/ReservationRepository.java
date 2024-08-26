@@ -19,7 +19,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             Long boothId, LocalDate reservationDate, Integer endTimeZone, Integer startTimeZone);
 
 
-    List<Reservation> findByUserIdAndAuthorityIdAndReservationDate(Long userId, Long authorityId, LocalDate reservationDate);
+//    List<Reservation> findAllByUserIdAndAuthorityIdAndReservationDate(Long userId, Long authorityId, LocalDate reservationDate);
 
     List<Reservation> findAllByBoothIdAndReservationDate(Long boothId,LocalDate date);
 

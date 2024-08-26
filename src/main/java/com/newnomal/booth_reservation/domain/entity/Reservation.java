@@ -25,6 +25,7 @@ public class Reservation {
     private Long id;
     private Long boothId;
     private Long userId;
+    private Long AuthorityId;
     private Integer reservationStartTimeZone;//예약 시작 time zone(1부터 시작, 1이 00:00~00:15)
     private Integer reservationEndTimeZone;//예약 종료 time zone
     private String qrIdentifier;//QR Data
