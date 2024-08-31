@@ -56,6 +56,7 @@ public class AuthorityController {
     }
 
 
+    //특정 기관에서 예약 불가한 타임 zone 반환
     @GetMapping("/getAuthorityReservedTimeZone")
     public ResponseEntity<RestResult<Object>> getAuthorityReservedTimeZone(Long authorityId,  LocalDate date) {
         return authorityService.getAuthorityReservedTimeZone(authorityId, date);

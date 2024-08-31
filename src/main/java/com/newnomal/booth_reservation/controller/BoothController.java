@@ -72,7 +72,7 @@ public class BoothController {
     }
 
     //단일 부스에서 예약 불가능한 타임 zone 반환
-    @GetMapping("/reservedTimeZone")
+    @GetMapping("/boothReservedTimeZone")
     public ResponseEntity<RestResult<Object>> getReservedTimeZone(
             @RequestParam Long boothId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
@@ -80,4 +80,7 @@ public class BoothController {
     }
 
 
+
 }
+
+

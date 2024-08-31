@@ -13,12 +13,9 @@ import com.newnomal.booth_reservation.repository.BoothRepository;
 import com.newnomal.booth_reservation.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -127,3 +124,4 @@ public class BoothService {
         }
     }
 }
+
